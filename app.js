@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV != "production") {
+if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
 
@@ -31,12 +31,12 @@ main()
   });
 
 async function main() {
-    await mongoose.connect(dbUrl);
-}  
+  await mongoose.connect(dbUrl);
+}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
@@ -86,16 +86,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/demouser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "student@gmail.com",
-//     username: "delta-student",
-//   });
-
-//   let registeredUser = await User.register(fakeUser, "helloworld");
-//   res.send(registeredUser);
-// });
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
@@ -105,11 +95,11 @@ app.all(/(.*)/, (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  let {statusCode = 500, message = "Something went wrong!"} = err;
-  res.status(statusCode).render("error.ejs", {message});
+  let { statusCode = 500, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("error.ejs", { message });
   // res.status(statusCode).send(message);
 });
 
 app.listen(8080, () => {
-    console.log("server is listening to port 8080");
-}); 
+  console.log("server is listening to port 8080");
+});
